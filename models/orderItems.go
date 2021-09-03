@@ -6,7 +6,9 @@ import (
 
 type OrderItems struct {
 	gorm.Model
-	ProductsID int      `json:"products_id"`
+	OrdersID   uint     `json:"orders_id"`
+	Orders     Orders   `gorm:"constraint:OnDelete:CASCADE"`
+	ProductsID uint     `json:"products_id"`
 	Products   Products `gorm:"constraint:OnDelete:CASCADE"`
 	Price      float32  `json:"price" gorm:"default:0"`
 	Qty        float32  `json:"qty" gorm:"default:0"`

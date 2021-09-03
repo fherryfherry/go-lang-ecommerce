@@ -27,6 +27,6 @@ func ProductList(c *gin.Context) {
 func ProductDetail(c *gin.Context) {
 	db := database.Connect(c)
 	ID, _ := strconv.Atoi(c.Param("id"))
-	row, _ := productRepository.FindById(db, ID)
+	row, _ := productRepository.FindById(db, uint(ID))
 	c.JSON(200, gin.H{"status": 1, "message": "ok", "data": row})
 }

@@ -9,6 +9,7 @@ import (
 )
 
 func main() {
+	fmt.Println("Application is ready!")
 
 	gin.SetMode("debug") //debug or release
 
@@ -37,7 +38,8 @@ func main() {
 	// User Routers
 	router.POST("/user/update-profile", middelwares.ApiGuardMiddleware(), api.UserUpdateProfile)
 
-	fmt.Println("Application is ready!")
+	// Order Routers
+	router.POST("/order/create", middelwares.ApiGuardMiddleware(), api.OrderCreate)
 
 	// Run the server
 	err := router.Run(":8080")

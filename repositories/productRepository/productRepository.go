@@ -27,7 +27,7 @@ func FindAllByCategory(db *gorm.DB, categoryID int, orderBy string, orderDir str
 	return User, query.RowsAffected
 }
 
-func FindById(db *gorm.DB, ID int) (models.Products, int64) {
+func FindById(db *gorm.DB, ID uint) (models.Products, int64) {
 	var Product models.Products
 	query := db.Model(&models.Products{}).Where("id = ?", ID).Where("status = 'Active'").First(&Product)
 	return Product, query.RowsAffected

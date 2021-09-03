@@ -6,7 +6,7 @@ Tech Stack:
 - MySQL
 
 Notable: 
-- Design Pattern: Controller/Api, Model, Repository
+- Design Pattern: Controller/Api, Model, Repository, Service
 - Helper support
 - Migration support
 - Middleware support
