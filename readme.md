@@ -2,6 +2,7 @@
 
 Tech Stack: 
 - Gin Web Framework
+- GORM.io
 - MySQL
 
 How To:
