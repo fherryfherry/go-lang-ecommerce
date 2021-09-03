@@ -10,7 +10,7 @@ Notable:
 - Helper support
 - Migration support
 - Middleware support
-- API Auth with oAuth standard
+- API Auth with OAUth 2.0 standard
 
 How To:
 1. Run `go mod tidy`
