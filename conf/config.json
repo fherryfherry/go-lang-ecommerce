@@ -1,0 +1,18 @@
+{
+  "environment": "development",
+
+  "auth_cred": {
+    "development": {
+      "username": "ferry",
+      "password": "123456"
+    },
+    "staging": {
+      "username": "ferry",
+      "password": "123456"
+    },
+    "production": {
+      "username": "ferry",
+      "password": "123456"
+    }
+  }
+}
