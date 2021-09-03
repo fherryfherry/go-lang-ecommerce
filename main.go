@@ -32,6 +32,7 @@ func main() {
 
 	// Product Routers
 	router.GET("/product/list", middelwares.ApiGuardMiddleware(), api.ProductList)
+	router.POST("/product/detail/:id", middelwares.ApiGuardMiddleware(), api.ProductDetail)
 
 	// User Routers
 	router.POST("/user/update-profile", middelwares.ApiGuardMiddleware(), api.UserUpdateProfile)
@@ -39,5 +40,8 @@ func main() {
 	fmt.Println("Application is ready!")
 
 	// Run the server
-	router.Run(":8080")
+	err := router.Run(":8080")
+	if err != nil {
+		return
+	}
 }
