@@ -3,6 +3,7 @@ package main
 import (
 	"ecommerce/api"
 	"ecommerce/database"
+	"ecommerce/helpers"
 	"ecommerce/middelwares"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -40,6 +41,9 @@ func main() {
 
 	// Order Routers
 	router.POST("/order/create", middelwares.ApiGuardMiddleware(), api.OrderCreate)
+
+	// Kafka Consumer
+	helpers.KafkaConsumerWorker("General")
 
 	// Run the server
 	err := router.Run(":8080")

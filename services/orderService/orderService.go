@@ -44,8 +44,10 @@ func MakeOrderNo(db *gorm.DB) string {
 	return OrderNo
 }
 
-func CreateOrder(c *gin.Context, Param OrderParameter) error {
+func CreateOrder(c *gin.Context, Param OrderParameter) (uint, error) {
 	db := database.Connect(c)
+
+	var newID uint
 
 	err := db.Transaction(func(tx *gorm.DB) error {
 		// Check shipping price
@@ -99,9 +101,11 @@ func CreateOrder(c *gin.Context, Param OrderParameter) error {
 			return err
 		}
 
+		newID = Order.ID
+
 		// Commit all transactions
 		return nil
 	})
 
-	return err
+	return newID, err
 }

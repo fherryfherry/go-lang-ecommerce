@@ -5,6 +5,7 @@ import (
 	"ecommerce/helpers"
 	"ecommerce/repositories/tokenRepository"
 	"ecommerce/services/orderService"
+	"encoding/json"
 	"github.com/gin-gonic/gin"
 )
 
@@ -48,7 +49,7 @@ func OrderCreate(c *gin.Context) {
 		})
 	}
 
-	err = orderService.CreateOrder(c, orderService.OrderParameter{
+	newID, newErr := orderService.CreateOrder(c, orderService.OrderParameter{
 		CustomersID:         tokenData.UsersID,
 		ShippingVendor:      OrderParameter.ShippingVendor,
 		ShippingPackage:     OrderParameter.ShippingPackage,
@@ -59,8 +60,20 @@ func OrderCreate(c *gin.Context) {
 		OrderItems:          OrderItemParameter,
 	})
 
-	if err != nil {
-		c.JSON(500, gin.H{"status": 0, "message": err.Error()})
+	// Send Email trigger
+	type KafkaDt struct {
+		Action string
+		ID     uint
+	}
+	kafkaData, _ := json.Marshal(KafkaDt{"SEND_EMAIL_ORDER_SUCCESS", newID})
+	kafkaErr := helpers.KafkaPushMessage("General", kafkaData)
+	if kafkaErr != nil {
+		c.JSON(500, gin.H{"status": 0, "message": kafkaErr.Error()})
+		return
+	}
+
+	if newErr != nil {
+		c.JSON(500, gin.H{"status": 0, "message": newErr.Error()})
 	} else {
 		c.JSON(200, gin.H{"status": 1, "message": "Thank you, your order has been created!"})
 	}
