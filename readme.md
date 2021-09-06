@@ -11,6 +11,7 @@ Notable:
 - Migration support
 - Middleware support
 - API Auth with OAUth 2.0 standard
+- Kafka Message Broker Support
 
 How To:
 1. Run `go mod tidy`
