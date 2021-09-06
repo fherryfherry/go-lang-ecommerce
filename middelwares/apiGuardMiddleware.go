@@ -11,7 +11,7 @@ func ApiGuardMiddleware() gin.HandlerFunc {
 		if accessToken != "" {
 			c.Next()
 		} else {
-			c.JSON(401, gin.H{"status":0,"message":"Invalid access!"})
+			c.JSON(401, gin.H{"status": 0, "message": "Invalid access!"})
 			c.Abort()
 			return
 		}
