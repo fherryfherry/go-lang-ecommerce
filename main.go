@@ -3,7 +3,6 @@ package main
 import (
 	"ecommerce/api"
 	"ecommerce/database"
-	"ecommerce/helpers"
 	"ecommerce/middelwares"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -18,6 +17,9 @@ func main() {
 	database.AutoMigrate()
 
 	router := gin.Default()
+
+	// Set static path
+	router.Static("/static", "./static")
 
 	// Set max upload limit
 	router.MaxMultipartMemory = 8 << 20
@@ -43,7 +45,7 @@ func main() {
 	router.POST("/order/create", middelwares.ApiGuardMiddleware(), api.OrderCreate)
 
 	// Kafka Consumer
-	helpers.KafkaConsumerWorker("General")
+	//helpers.KafkaConsumerWorker("General")
 
 	// Run the server
 	err := router.Run(":8080")
